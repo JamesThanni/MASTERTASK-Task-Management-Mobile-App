@@ -1,17 +1,22 @@
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import React from 'react';
+import { FontAwesome } from '@expo/vector-icons';
 import { withSafeAreaInsets } from 'react-native-safe-area-context';
 
 type TaskProps = {
   task: string;
+  isCompleted: boolean;
 };
 
 // Easiest way to declare a Function Component; return type is inferred.
-const Task = ({ task }: TaskProps) => (
+const Task = ({ task, isCompleted }: TaskProps) => (
   <View style={styles.task}>
     <View style={styles.leftOfTask}>
-      <TouchableOpacity style={styles.completeButton}></TouchableOpacity>
-      <Text style={styles.taskText}>{task}</Text>
+      <View style={styles.completeButton}>
+        {isCompleted && <FontAwesome name="check" size={16} color={'white'} />}
+      </View>
+      {!isCompleted && <Text style={styles.taskText}>{task}</Text>}
+      {isCompleted && <Text style={styles.completedTaskText}>{task}</Text>}
     </View>
     <View style={styles.selectButton}></View>
   </View>
@@ -24,10 +29,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     padding: 15,
     marginBottom: 10,
-    backgroundColor: '#121212',
-    borderRadius: 10,
-    borderWidth: 0.25,
-    borderColor: '#202020',
+    borderBottomWidth: 2.5,
+    borderBottomColor: '#202020',
   },
   leftOfTask: {
     flexDirection: 'row',
@@ -37,19 +40,26 @@ const styles = StyleSheet.create({
   completeButton: {
     width: 24,
     height: 24,
-    backgroundColor: '#55BCF6',
+    backgroundColor: '#555555',
     opacity: 0.4,
     borderRadius: 5,
     marginRight: 15,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   taskText: {
     maxWidth: '80%',
     color: '#fff',
   },
+  completedTaskText: {
+    maxWidth: '80%',
+    color: 'grey',
+    textDecorationLine: 'line-through',
+  },
   selectButton: {
     width: 12,
     height: 12,
-    borderColor: '#55BCF6',
+    borderColor: '#555555',
     borderWidth: 2,
     borderRadius: 5,
   },

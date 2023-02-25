@@ -63,6 +63,13 @@ export default function TabOneScreen({
   return (
     <>
       <View style={styles.container}>
+        {/* Today's Date */}
+        <View style={styles.dateSection}>
+          <Text style={styles.dateTitle}>
+            01 Jan
+            {/* TODO: Date functionality and make this look like a journal */}
+          </Text>
+        </View>
         {/* Today's Tasks */}
         <View style={styles.tasksSection}>
           <Text style={styles.sectionTitle}>Today's Tasks</Text>
@@ -74,7 +81,7 @@ export default function TabOneScreen({
                   key={index}
                   onPress={() => completeTask(index)}
                 >
-                  <Task task={task} />
+                  <Task task={task} isCompleted={false} />
                 </TouchableOpacity>
               );
             })}
@@ -85,6 +92,7 @@ export default function TabOneScreen({
           </View>
         </View>
 
+        {/* Completed Tasks */}
         <View style={styles.tasksSection}>
           <Text style={styles.sectionTitle}>Completed Tasks</Text>
           <View style={styles.tasks}>
@@ -95,7 +103,7 @@ export default function TabOneScreen({
                   key={index}
                   onPress={() => reassignTask(index)}
                 >
-                  <Task task={task} />
+                  <Task task={task} isCompleted={true} />
                 </TouchableOpacity>
               );
             })}
@@ -136,15 +144,25 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: '500',
+  },
+  dateTitle: {
+    fontSize: 32,
+    fontWeight: '700',
+    marginBottom: 16,
+    marginHorizontal: 20,
+  },
+  dateSection: {
+    paddingTop: 20,
+    paddingHorizontaL: 20,
   },
   tasksSection: {
-    paddingTop: 80,
+    paddingTop: 20,
     paddingHorizontal: 20,
   },
   sectionTitle: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: '500',
     marginBottom: 16,
   },
   tasks: {},
